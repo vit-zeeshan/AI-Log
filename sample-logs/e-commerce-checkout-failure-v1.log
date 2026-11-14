@@ -1,0 +1,7 @@
+2024-11-14 08:00:01.000 [checkout-service] INFO c.e.c.CheckoutService : Checkout initiated order_id=101
+2024-11-14 08:00:02.100 [checkout-service] WARN c.e.c.InventoryClient : Slow response from warehouse service (1200ms)
+2024-11-14 08:00:05.400 [checkout-service] ERROR c.e.c.PaymentGateway : Payment declined: InsufficientFundsException
+com.example.checkout.exception.InsufficientFundsException: Balance below transaction threshold
+	at com.example.checkout.service.PaymentService.validateBalance(PaymentService.java:42)
+	at com.example.checkout.service.PaymentService.charge(PaymentService.java:28)
+2024-11-14 08:00:10.000 [checkout-service] INFO c.e.c.CheckoutService : Checkout completed order_id=102

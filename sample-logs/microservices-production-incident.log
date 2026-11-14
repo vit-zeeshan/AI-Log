@@ -1,0 +1,50 @@
+2024-11-14 09:14:02.124 [order-service] [main] INFO  c.e.order.OrderServiceApplication : Started OrderServiceApplication in 3.412 seconds (process running for 4.12)
+2024-11-14 09:14:05.890 [order-service] [http-nio-8080-exec-1] INFO  c.e.order.controller.OrderController : Received checkout request for user_id=10842, cart_total=149.99
+2024-11-14 09:14:06.120 [order-service] [http-nio-8080-exec-2] INFO  c.e.order.controller.OrderController : Received checkout request for user_id=10843, cart_total=49.00
+2024-11-14 09:14:36.123 [order-service] [http-nio-8080-exec-2] ERROR com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Connection is not available, request timed out after 30002ms.
+org.postgresql.util.PSQLException: Connection to 10.0.4.12:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:319)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:247)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at com.example.order.service.OrderService.createOrder(OrderService.java:84)
+	at com.example.order.controller.OrderController.checkout(OrderController.java:52)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+2024-11-14 09:14:36.155 [order-service] [http-nio-8080-exec-2] ERROR c.e.order.controller.OrderController : Failed to complete checkout for order_ref=ORD-9821
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30002ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:100)
+	at com.example.order.service.OrderService.createOrder(OrderService.java:84)
+2024-11-14 09:14:40.301 [order-service] [http-nio-8080-exec-3] ERROR com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Connection is not available, request timed out after 30002ms.
+2024-11-14 09:14:42.112 [payment-service] [http-nio-8081-exec-5] ERROR c.e.payment.client.GatewayClient : Read timed out executing POST https://payment.partner.bank/api/v2/charge
+java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:278)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:304)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
+	at java.base/sun.security.ssl.SSLSocketImpl.read(SSLSocketImpl.java:471)
+	at com.example.payment.client.GatewayClient.charge(GatewayClient.java:62)
+	at com.example.payment.service.PaymentProcessor.process(PaymentProcessor.java:41)
+2024-11-14 09:14:45.002 [order-service] [http-nio-8080-exec-4] ERROR io.github.resilience4j.circuitbreaker : CircuitBreaker 'paymentService' is OPEN and does not permit further calls
+io.github.resilience4j.circuitbreaker.CallNotPermittedException: CircuitBreaker 'paymentService' is OPEN and does not permit further calls
+	at io.github.resilience4j.circuitbreaker.internal.CircuitBreakerStateMachine.acquirePermission(CircuitBreakerStateMachine.java:208)
+	at com.example.order.client.PaymentClient.invoke(PaymentClient.java:32)
+2024-11-14 09:14:50.120 [order-service] [scheduling-1] ERROR c.e.order.jobs.OrderCleanupJob : Scheduled reconciliation job failed unexpectedly
+java.lang.NullPointerException: Cannot invoke "com.example.order.model.Order.getBillingAddress()" because "order" is null
+	at com.example.order.jobs.OrderCleanupJob.reconcile(OrderCleanupJob.java:48)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+2024-11-14 09:14:52.411 [order-service] [http-nio-8080-exec-6] WARN  c.e.order.security.JwtValidator : Expired JWT token presented for auth header: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE1MTYyNDI2MjJ9.456xyz
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2024-11-14T09:10:00Z. Current time: 2024-11-14T09:14:52Z, a difference of 292000 milliseconds.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:400)
+2024-11-14 09:14:55.789 [order-service] [http-nio-8080-exec-7] ERROR com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Connection is not available, request timed out after 30002ms.
+2024-11-14 09:15:01.002 [order-service] [http-nio-8080-exec-8] ERROR com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Connection is not available, request timed out after 30002ms.

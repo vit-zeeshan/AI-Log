@@ -1,0 +1,37 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: ai-log-analyzer
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# Application specific configurations
+app:
+  jwt:
+    secret: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+    expiration-ms: 86400000 # 24 hours
+  storage:
+    upload-dir: "./uploads"
+  ai:
+    provider: ${AI_PROVIDER:heuristic} # heuristic, openai, gemini, custom
+    api-key: ${AI_API_KEY:}
+    model: ${AI_MODEL:gpt-4o-mini}
+    api-url: ${AI_API_URL:https://api.openai.com/v1/chat/completions}
+    temperature: 0.2
+    max-tokens: 2500
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
