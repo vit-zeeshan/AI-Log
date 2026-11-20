@@ -22,8 +22,8 @@ public interface ParsedErrorRepository extends JpaRepository<ParsedError, Long> 
     @Query("SELECT pe FROM ParsedError pe WHERE pe.analysis = :analysis " +
            "AND (:severity IS NULL OR pe.severity = :severity) " +
            "AND (:category IS NULL OR pe.category = :category) " +
-           "AND (:serviceName IS NULL OR LOWER(pe.serviceName) LIKE LOWER(CONCAT('%', :serviceName, '%'))) " +
-           "AND (:query IS NULL OR (LOWER(pe.title) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(pe.message) LIKE LOWER(CONCAT('%', :query, '%')))) " +
+           "AND (:serviceName IS NULL OR LOWER(pe.serviceName) LIKE CONCAT('%', LOWER(CAST(:serviceName AS string)), '%')) " +
+           "AND (:query IS NULL OR (LOWER(pe.title) LIKE CONCAT('%', LOWER(CAST(:query AS string)), '%') OR LOWER(pe.message) LIKE CONCAT('%', LOWER(CAST(:query AS string)), '%'))) " +
            "ORDER BY pe.occurrenceCount DESC")
     Page<ParsedError> searchErrors(
             @Param("analysis") LogAnalysis analysis,

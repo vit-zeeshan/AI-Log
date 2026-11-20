@@ -14,6 +14,7 @@ import java.util.Optional;
 @Repository
 public interface LogAnalysisRepository extends JpaRepository<LogAnalysis, Long> {
     List<LogAnalysis> findByUserOrderByCreatedAtDesc(User user);
+    List<LogAnalysis> findAllByOrderByCreatedAtDesc();
     Optional<LogAnalysis> findByIdAndUser(Long id, User user);
     Optional<LogAnalysis> findFirstByLogFileOrderByCreatedAtDesc(LogFile logFile);
     Optional<LogAnalysis> findFirstByLogFileAndUserOrderByCreatedAtDesc(LogFile logFile, User user);

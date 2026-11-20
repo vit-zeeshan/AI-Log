@@ -56,6 +56,17 @@ export const ErrorExplorerPage: React.FC = () => {
   const [totalElements, setTotalElements] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Synchronize URL query parameter when navigating from upload or history
+  useEffect(() => {
+    const urlAnalysisId = searchParams.get('analysisId');
+    if (urlAnalysisId) {
+      const parsed = parseInt(urlAnalysisId);
+      if (!isNaN(parsed) && parsed !== selectedAnalysisId) {
+        setSelectedAnalysisId(parsed);
+      }
+    }
+  }, [searchParams]);
+
   useEffect(() => {
     loadAnalyses();
   }, []);
@@ -70,8 +81,15 @@ export const ErrorExplorerPage: React.FC = () => {
     try {
       const list = await analysisService.getAnalysisHistory();
       setAnalyses(list);
-      if (!selectedAnalysisId && list.length > 0) {
+      const urlAnalysisId = searchParams.get('analysisId')
+        ? parseInt(searchParams.get('analysisId')!)
+        : undefined;
+
+      if (urlAnalysisId && list.some((a) => a.id === urlAnalysisId)) {
+        setSelectedAnalysisId(urlAnalysisId);
+      } else if (!selectedAnalysisId && list.length > 0) {
         setSelectedAnalysisId(list[0].id);
+        setSearchParams({ analysisId: list[0].id.toString() });
       }
     } catch (e) {
       console.error(e);

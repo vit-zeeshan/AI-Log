@@ -1,60 +1,60 @@
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\ai\AiChatService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\ai\AiOrchestrator.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\ai\HeuristicSeniorSreEngine.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\ai\LlmAiAnalysisService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\analyzer\CorrelationEngine.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\analyzer\ErrorClassifier.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\analyzer\ErrorClusterer.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\analyzer\LogComparisonService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\config\AsyncConfig.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\config\DataInitializer.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\config\OpenApiConfig.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\controller\AiController.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\controller\AnalysisController.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\controller\AuthController.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\controller\DashboardController.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\controller\LogFileController.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\ApiResponse.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\AuthDtos.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\ChatDtos.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\DashboardSummaryDto.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\LogComparisonDto.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\dto\LogDtos.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\AnalysisStatus.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\ChatMessage.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\ErrorCategory.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\FileStatus.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\LogAnalysis.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\LogFile.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\MessageRole.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\ParsedError.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\RootCauseReport.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\Severity.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\entity\User.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\exception\AppException.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\exception\GlobalExceptionHandler.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\exception\InvalidLogFormatException.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\exception\ResourceNotFoundException.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\LogAnalyzerApplication.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\GenericLogParser.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\JsonLogParser.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\LogParser.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\LogParserFactory.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\MaskingService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\RawLogEntry.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\parser\SpringBootLogParser.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\ChatMessageRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\LogAnalysisRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\LogFileRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\ParsedErrorRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\RootCauseReportRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\repository\UserRepository.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\security\CustomUserDetailsService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\security\JwtAuthenticationFilter.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\security\JwtUtil.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\security\SecurityConfig.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\service\AnalysisService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\service\AuthService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\service\DashboardService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\service\FileStorageService.java
-C:\Users\ASUS\OneDrive\Desktop\AI Log\backend\src\main\java\com\loganalyzer\service\LogFileService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\ai\AiChatService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\ai\AiOrchestrator.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\ai\HeuristicSeniorSreEngine.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\ai\LlmAiAnalysisService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\analyzer\CorrelationEngine.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\analyzer\ErrorClassifier.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\analyzer\ErrorClusterer.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\analyzer\LogComparisonService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\config\AsyncConfig.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\config\DataInitializer.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\config\OpenApiConfig.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\controller\AiController.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\controller\AnalysisController.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\controller\AuthController.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\controller\DashboardController.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\controller\LogFileController.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\ApiResponse.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\AuthDtos.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\ChatDtos.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\DashboardSummaryDto.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\LogComparisonDto.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\dto\LogDtos.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\AnalysisStatus.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\ChatMessage.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\ErrorCategory.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\FileStatus.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\LogAnalysis.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\LogFile.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\MessageRole.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\ParsedError.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\RootCauseReport.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\Severity.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\entity\User.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\exception\AppException.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\exception\GlobalExceptionHandler.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\exception\InvalidLogFormatException.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\exception\ResourceNotFoundException.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\LogAnalyzerApplication.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\GenericLogParser.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\JsonLogParser.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\LogParser.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\LogParserFactory.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\MaskingService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\RawLogEntry.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\parser\SpringBootLogParser.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\ChatMessageRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\LogAnalysisRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\LogFileRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\ParsedErrorRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\RootCauseReportRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\repository\UserRepository.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\security\CustomUserDetailsService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\security\JwtAuthenticationFilter.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\security\JwtUtil.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\security\SecurityConfig.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\service\AnalysisService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\service\AuthService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\service\DashboardService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\service\FileStorageService.java
+C:\Users\ASUS\OneDrive\Desktop\AI-Log-Analyzer\backend\src\main\java\com\loganalyzer\service\LogFileService.java

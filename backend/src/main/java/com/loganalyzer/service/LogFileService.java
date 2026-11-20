@@ -34,7 +34,6 @@ public class LogFileService {
     @Transactional
     public LogDtos.LogFileDto uploadLogFile(MultipartFile file, User user) {
         FileStorageService.StoredFile stored = fileStorageService.storeFile(file);
-
         LogFile logFile = LogFile.builder()
                 .user(user)
                 .filename(stored.storedFilename())
@@ -45,7 +44,6 @@ public class LogFileService {
                 .status(FileStatus.UPLOADED)
                 .checksum(stored.checksum())
                 .build();
-
         logFileRepository.save(logFile);
         return mapToDto(logFile, null);
     }
@@ -61,9 +59,27 @@ public class LogFileService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<LogDtos.LogFileDto> getUserFiles(User user) {
+        // If the user has ROLE_ADMIN, let them see and manage all uploaded files across the system
+        List<LogFile> files = "ROLE_ADMIN".equals(user.getRole())
+                ? logFileRepository.findAllByOrderByUploadTimestampDesc()
+                : logFileRepository.findByUserOrderByUploadTimestampDesc(user);
+
+        return files.stream()
+                .map(f -> {
+                    Optional<LogAnalysis> latest = logAnalysisRepository.findFirstByLogFileOrderByCreatedAtDesc(f);
+                    return mapToDto(f, latest.map(LogAnalysis::getId).orElse(null));
+                })
+                .collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public LogFile getLogFile(Long id, User user) {
+        if ("ROLE_ADMIN".equals(user.getRole())) {
+            return logFileRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Log file", "id", id));
+        }
         return logFileRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new ResourceNotFoundException("Log file", "id", id));
     }

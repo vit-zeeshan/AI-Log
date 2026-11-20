@@ -67,8 +67,11 @@ public class AnalysisService {
     public LogDtos.LogAnalysisDto analyzeLogFile(Long logFileId, User user) {
         long startTime = System.currentTimeMillis();
 
-        LogFile logFile = logFileRepository.findByIdAndUser(logFileId, user)
-                .orElseThrow(() -> new ResourceNotFoundException("Log file", "id", logFileId));
+        LogFile logFile = "ROLE_ADMIN".equals(user.getRole())
+                ? logFileRepository.findById(logFileId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Log file", "id", logFileId))
+                : logFileRepository.findByIdAndUser(logFileId, user)
+                        .orElseThrow(() -> new ResourceNotFoundException("Log file", "id", logFileId));
 
         logFile.setStatus(FileStatus.PARSING);
         logFileRepository.save(logFile);
@@ -165,8 +168,11 @@ public class AnalysisService {
 
     @Transactional(readOnly = true)
     public LogDtos.LogAnalysisDto getAnalysis(Long id, User user) {
-        LogAnalysis analysis = logAnalysisRepository.findByIdAndUser(id, user)
-                .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id));
+        LogAnalysis analysis = "ROLE_ADMIN".equals(user.getRole())
+                ? logAnalysisRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id))
+                : logAnalysisRepository.findByIdAndUser(id, user)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id));
         List<ParsedError> errors = parsedErrorRepository.findByAnalysisOrderByOccurrenceCountDesc(analysis);
         return mapToDto(analysis, errors);
     }
@@ -176,8 +182,11 @@ public class AnalysisService {
             Long analysisId, Severity severity, ErrorCategory category,
             String serviceName, String query, Pageable pageable, User user) {
 
-        LogAnalysis analysis = logAnalysisRepository.findByIdAndUser(analysisId, user)
-                .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", analysisId));
+        LogAnalysis analysis = "ROLE_ADMIN".equals(user.getRole())
+                ? logAnalysisRepository.findById(analysisId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", analysisId))
+                : logAnalysisRepository.findByIdAndUser(analysisId, user)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", analysisId));
 
         Page<ParsedError> page = parsedErrorRepository.searchErrors(
                 analysis, severity, category, serviceName, query, pageable
@@ -188,8 +197,11 @@ public class AnalysisService {
 
     @Transactional(readOnly = true)
     public String exportAnalysisReport(Long id, User user) {
-        LogAnalysis analysis = logAnalysisRepository.findByIdAndUser(id, user)
-                .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id));
+        LogAnalysis analysis = "ROLE_ADMIN".equals(user.getRole())
+                ? logAnalysisRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id))
+                : logAnalysisRepository.findByIdAndUser(id, user)
+                        .orElseThrow(() -> new ResourceNotFoundException("Analysis", "id", id));
         List<ParsedError> errors = parsedErrorRepository.findByAnalysisOrderByOccurrenceCountDesc(analysis);
 
         StringBuilder sb = new StringBuilder();

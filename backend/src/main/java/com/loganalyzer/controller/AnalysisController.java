@@ -64,7 +64,9 @@ public class AnalysisController {
     @Operation(summary = "Get historical analysis records for current user")
     public ResponseEntity<ApiResponse<List<LogDtos.LogAnalysisDto>>> getHistory() {
         User user = authService.getCurrentAuthenticatedUser();
-        List<LogAnalysis> list = logAnalysisRepository.findByUserOrderByCreatedAtDesc(user);
+        List<LogAnalysis> list = "ROLE_ADMIN".equals(user.getRole())
+                ? logAnalysisRepository.findAllByOrderByCreatedAtDesc()
+                : logAnalysisRepository.findByUserOrderByCreatedAtDesc(user);
         List<LogDtos.LogAnalysisDto> dtos = list.stream().map(a -> LogDtos.LogAnalysisDto.builder()
                 .id(a.getId())
                 .logFileId(a.getLogFile().getId())

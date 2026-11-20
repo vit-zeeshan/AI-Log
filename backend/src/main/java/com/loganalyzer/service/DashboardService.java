@@ -35,8 +35,11 @@ public class DashboardService {
 
     @Transactional(readOnly = true)
     public DashboardSummaryDto getSummary(User user) {
-        long totalLogFiles = logFileRepository.countByUser(user);
-        List<LogAnalysis> analyses = logAnalysisRepository.findByUserOrderByCreatedAtDesc(user);
+        boolean isAdmin = "ROLE_ADMIN".equals(user.getRole());
+        long totalLogFiles = isAdmin ? logFileRepository.count() : logFileRepository.countByUser(user);
+        List<LogAnalysis> analyses = isAdmin
+                ? logAnalysisRepository.findAllByOrderByCreatedAtDesc()
+                : logAnalysisRepository.findByUserOrderByCreatedAtDesc(user);
         long totalAnalyses = analyses.size();
 
         long totalLogEntries = 0;
