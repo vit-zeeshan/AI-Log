@@ -133,14 +133,14 @@ export const FileUploadDropzone: React.FC<Props> = ({ onFileUploaded, onAnalyzeT
 
         {!selectedFile ? (
           <div className="space-y-4">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-inner">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20 shadow-inner">
               <UploadCloud className="h-8 w-8" />
             </div>
             <div>
-              <p className="text-base font-semibold text-white">
+              <p className="text-base font-semibold text-slate-900 dark:text-white">
                 Drag and drop your application log file here
               </p>
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 or click to browse your computer
               </p>
             </div>
@@ -149,24 +149,24 @@ export const FileUploadDropzone: React.FC<Props> = ({ onFileUploaded, onAnalyzeT
               {SUPPORTED_EXTENSIONS.map((ext) => (
                 <span
                   key={ext}
-                  className="rounded-md bg-slate-800 px-2 py-0.5 font-mono text-xs text-slate-300 border border-slate-700/60"
+                  className="rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60"
                 >
                   {ext}
                 </span>
               ))}
-              <span className="text-xs text-slate-500 ml-2">Max 100MB</span>
+              <span className="text-xs text-slate-400 dark:text-slate-500 ml-2">Max 100MB</span>
             </div>
           </div>
         ) : (
           <div className="w-full max-w-lg space-y-4 text-left">
-            <div className="flex items-center justify-between rounded-xl bg-slate-800/90 p-4 border border-slate-700">
+            <div className="flex items-center justify-between rounded-xl bg-slate-100 dark:bg-slate-800/90 p-4 border border-slate-200 dark:border-slate-700">
               <div className="flex items-center gap-3 overflow-hidden">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500 dark:text-blue-400">
                   {selectedFile.name.endsWith('.gz') ? <Archive className="w-5 h-5" /> : <FileText className="w-5 h-5" />}
                 </div>
                 <div className="overflow-hidden">
-                  <p className="truncate text-sm font-medium text-white">{selectedFile.name}</p>
-                  <p className="text-xs text-slate-400">{formatBytes(selectedFile.size)}</p>
+                  <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{selectedFile.name}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{formatBytes(selectedFile.size)}</p>
                 </div>
               </div>
               {!isUploading && !uploadedLogFile && (
@@ -175,7 +175,7 @@ export const FileUploadDropzone: React.FC<Props> = ({ onFileUploaded, onAnalyzeT
                     e.stopPropagation();
                     removeFile();
                   }}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -185,11 +185,11 @@ export const FileUploadDropzone: React.FC<Props> = ({ onFileUploaded, onAnalyzeT
             {/* Upload Progress Bar */}
             {uploadProgress !== null && (
               <div className="space-y-1.5">
-                <div className="flex justify-between text-xs text-slate-400">
+                <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>{uploadProgress < 100 ? 'Uploading to secure enclave...' : 'File stored & verified'}</span>
                   <span className="font-mono">{uploadProgress}%</span>
                 </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
                   <div
                     className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
                     style={{ width: `${uploadProgress}%` }}
@@ -204,7 +204,7 @@ export const FileUploadDropzone: React.FC<Props> = ({ onFileUploaded, onAnalyzeT
                 type="button"
                 onClick={removeFile}
                 disabled={isUploading}
-                className="rounded-lg px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 transition-colors"
+                className="rounded-lg px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 Choose Another File
               </button>

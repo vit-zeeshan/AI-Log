@@ -10,25 +10,40 @@ import {
   FileCode2,
 } from 'lucide-react';
 
-export const Navbar: React.FC = () => {
+interface Props {
+  onToggleSidebar?: () => void;
+}
+
+export const Navbar: React.FC<Props> = ({ onToggleSidebar }) => {
   const { user, logout } = useAuthStore();
   const { isDark, toggleTheme } = useThemeStore();
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 px-6 backdrop-blur-md transition-colors duration-200">
-      {/* Brand */}
+    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 px-4 sm:px-6 backdrop-blur-md transition-colors duration-200">
+      {/* Brand & Mobile Hamburger */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+        {onToggleSidebar && (
+          <button
+            onClick={onToggleSidebar}
+            className="rounded-lg p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 md:hidden transition-colors"
+            title="Toggle Menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        )}
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20 shrink-0">
           <Activity className="h-5 w-5" />
         </div>
         <div>
-          <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+          <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
             LogSense AI
-            <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400 border border-blue-500/30">
+            <span className="hidden sm:inline-block rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400 border border-blue-500/30">
               SRE PLATFORM
             </span>
           </span>
-          <span className="block text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+          <span className="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 font-mono">
             Autonomous Incident Diagnostics
           </span>
         </div>
