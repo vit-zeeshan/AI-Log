@@ -51,13 +51,16 @@ public class LogFileService {
     }
 
     @Transactional(readOnly = true)
-    public List<LogDtos.LogFileDto> getUserFiles(User user) {
-        List<LogFile> files = logFileRepository.findByUserOrderByUploadTimestampDesc(user);
-        return files.stream().map(f -> {
-            Optional<LogAnalysis> latest = logAnalysisRepository.findFirstByLogFileOrderByCreatedAtDesc(f);
-            return mapToDto(f, latest.map(LogAnalysis::getId).orElse(null));
-        }).collect(Collectors.toList());
+    public List<LogDtos.LogFileDto> getAllFiles() {
+        List<LogFile> files = logFileRepository.findAllByOrderByUploadTimestampDesc();
+        return files.stream()
+                .map(f -> {
+                    Optional<LogAnalysis> latest = logAnalysisRepository.findFirstByLogFileOrderByCreatedAtDesc(f);
+                    return mapToDto(f, latest.map(LogAnalysis::getId).orElse(null));
+                })
+                .collect(Collectors.toList());
     }
+
 
     @Transactional(readOnly = true)
     public LogFile getLogFile(Long id, User user) {

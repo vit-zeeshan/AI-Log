@@ -6,6 +6,7 @@ import { SeverityBadge } from '../components/SeverityBadge';
 import { CategoryBadge } from '../components/CategoryBadge';
 import { ErrorDetailModal } from '../components/ErrorDetailModal';
 import { formatBytes, formatDuration, formatDate } from '../utils/formatters';
+import { useThemeStore } from '../store/themeStore';
 import { Link } from 'react-router-dom';
 import {
   FileText,
@@ -31,8 +32,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
 } from 'recharts';
 
 const SEVERITY_COLORS: Record<string, string> = {
@@ -46,6 +45,7 @@ export const DashboardPage: React.FC = () => {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedError, setSelectedError] = useState<ParsedError | null>(null);
+  const { isDark } = useThemeStore();
 
   useEffect(() => {
     loadSummary();
@@ -63,18 +63,10 @@ export const DashboardPage: React.FC = () => {
     }
   };
 
-  // Prepare chart data
   const severityPieData = summary?.errorDistributionBySeverity
     ? Object.entries(summary.errorDistributionBySeverity).map(([name, value]) => ({
         name,
         value,
-      }))
-    : [];
-
-  const categoryBarData = summary?.errorDistributionByCategory
-    ? Object.entries(summary.errorDistributionByCategory).slice(0, 6).map(([name, value]) => ({
-        name: name.replace('_ERRORS', '').replace('_ISSUES', ''),
-        count: value,
       }))
     : [];
 
@@ -83,10 +75,10 @@ export const DashboardPage: React.FC = () => {
       {/* Top Banner */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
             Incident & SRE Reliability Dashboard
           </h1>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
             Real-time automated root cause diagnosis, log anomaly clustering, and error analytics.
           </p>
         </div>
@@ -105,14 +97,14 @@ export const DashboardPage: React.FC = () => {
           title="Total Log Lines"
           value={summary?.totalLogEntries?.toLocaleString() || '0'}
           subtitle="Processed entries"
-          icon={<FileText className="w-4 h-4 text-blue-400" />}
+          icon={<FileText className="w-4 h-4 text-blue-500 dark:text-blue-400" />}
           variant="info"
         />
         <MetricCard
           title="Total Errors"
           value={summary?.totalErrors?.toLocaleString() || '0'}
           subtitle="Captured failures"
-          icon={<AlertOctagon className="w-4 h-4 text-rose-400" />}
+          icon={<AlertOctagon className="w-4 h-4 text-rose-500 dark:text-rose-400" />}
           variant="danger"
         />
         <MetricCard
@@ -126,20 +118,20 @@ export const DashboardPage: React.FC = () => {
           title="Warnings"
           value={summary?.totalWarnings?.toLocaleString() || '0'}
           subtitle="Non-fatal anomalies"
-          icon={<AlertTriangle className="w-4 h-4 text-amber-400" />}
+          icon={<AlertTriangle className="w-4 h-4 text-amber-500 dark:text-amber-400" />}
           variant="warning"
         />
         <MetricCard
           title="Unique Signatures"
           value={summary?.uniqueErrorPatterns || 0}
           subtitle="Deduplicated patterns"
-          icon={<Fingerprint className="w-4 h-4 text-purple-400" />}
+          icon={<Fingerprint className="w-4 h-4 text-purple-500 dark:text-purple-400" />}
         />
         <MetricCard
           title="Avg Analysis Time"
           value={formatDuration(summary?.avgAnalysisDurationMs || 0)}
           subtitle="Stream processing"
-          icon={<Timer className="w-4 h-4 text-emerald-400" />}
+          icon={<Timer className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />}
           variant="success"
         />
       </div>
@@ -147,16 +139,16 @@ export const DashboardPage: React.FC = () => {
       {/* Interactive Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Error Frequency Over Time */}
-        <div className="lg:col-span-2 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-sm">
+        <div className="lg:col-span-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 p-5 shadow-sm dark:shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Activity className="w-4 h-4 text-blue-400" />
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <Activity className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                 Error Frequency & Timeline Trends
               </h3>
-              <p className="text-xs text-slate-400">Captured failures over previous log runs</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Captured failures over previous log runs</p>
             </div>
-            <span className="text-xs font-mono text-slate-500">Live Telemetry</span>
+            <span className="text-xs font-mono text-slate-400 dark:text-slate-500">Live Telemetry</span>
           </div>
           <div className="h-64 w-full">
             {summary?.errorFrequencyOverTime && summary.errorFrequencyOverTime.length > 0 ? (
@@ -168,18 +160,23 @@ export const DashboardPage: React.FC = () => {
                       <stop offset="95%" stopColor="#f43f5e" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="timestamp" stroke="#64748b" fontSize={11} />
-                  <YAxis stroke="#64748b" fontSize={11} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+                  <XAxis dataKey="timestamp" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={11} />
+                  <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={11} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#090d16', borderColor: '#334155', borderRadius: '8px' }}
-                    labelStyle={{ color: '#94a3b8', fontSize: '12px' }}
+                    contentStyle={{
+                      backgroundColor: isDark ? '#090d16' : '#ffffff',
+                      borderColor: isDark ? '#334155' : '#cbd5e1',
+                      borderRadius: '8px',
+                      color: isDark ? '#f8fafc' : '#0f172a',
+                    }}
+                    labelStyle={{ color: isDark ? '#94a3b8' : '#64748b', fontSize: '12px' }}
                   />
                   <Area type="monotone" dataKey="errorCount" stroke="#f43f5e" fillOpacity={1} fill="url(#errorColor)" name="Errors" />
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
-              <div className="flex h-full items-center justify-center text-xs text-slate-500">
+              <div className="flex h-full items-center justify-center text-xs text-slate-400 dark:text-slate-500">
                 No timeline telemetry points yet. Upload a log file to visualize frequency trends.
               </div>
             )}
@@ -187,11 +184,11 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Severity Distribution */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-sm">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 p-5 shadow-sm dark:shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold text-white">Severity Breakdown</h3>
-              <p className="text-xs text-slate-400">Proportion of impact tiers</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Severity Breakdown</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Proportion of impact tiers</p>
             </div>
           </div>
           <div className="h-48 w-full flex items-center justify-center">
@@ -212,21 +209,26 @@ export const DashboardPage: React.FC = () => {
                     ))}
                   </Pie>
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#090d16', borderColor: '#334155', borderRadius: '8px' }}
+                    contentStyle={{
+                      backgroundColor: isDark ? '#090d16' : '#ffffff',
+                      borderColor: isDark ? '#334155' : '#cbd5e1',
+                      borderRadius: '8px',
+                      color: isDark ? '#f8fafc' : '#0f172a',
+                    }}
                   />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="text-xs text-slate-500">No severity distributions recorded</div>
+              <div className="text-xs text-slate-400 dark:text-slate-500">No severity distributions recorded</div>
             )}
           </div>
           {/* Legend */}
-          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80 text-xs">
+          <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200 dark:border-slate-800/80 text-xs">
             {['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'].map((sev) => (
               <div key={sev} className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: SEVERITY_COLORS[sev] }} />
-                <span className="text-slate-400">{sev}:</span>
-                <span className="font-mono font-semibold text-white">
+                <span className="text-slate-500 dark:text-slate-400">{sev}:</span>
+                <span className="font-mono font-semibold text-slate-900 dark:text-white">
                   {summary?.errorDistributionBySeverity?.[sev] || 0}
                 </span>
               </div>
@@ -236,20 +238,20 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* Top Recurring Errors Table */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/80 shadow-xl overflow-hidden backdrop-blur-sm">
-        <div className="flex items-center justify-between border-b border-slate-800 p-5">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/80 shadow-sm dark:shadow-xl overflow-hidden backdrop-blur-sm">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 p-5">
           <div>
-            <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-rose-400" />
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-rose-500" />
               Top Recurring Error Signatures
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Aggregated error clusters requiring immediate Senior SRE triage
             </p>
           </div>
           <Link
             to="/explorer"
-            className="flex items-center gap-1 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors"
+            className="flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition-colors"
           >
             <span>View All in Explorer</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -258,7 +260,7 @@ export const DashboardPage: React.FC = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/60 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-800">
+            <thead className="bg-slate-50 dark:bg-slate-950/60 text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="py-3 px-4">Severity</th>
                 <th className="py-3 px-4">Category</th>
@@ -269,13 +271,13 @@ export const DashboardPage: React.FC = () => {
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/80">
               {summary?.topRecurringErrors && summary.topRecurringErrors.length > 0 ? (
                 summary.topRecurringErrors.map((err) => (
                   <tr
                     key={err.id}
                     onClick={() => setSelectedError(err)}
-                    className="hover:bg-slate-800/50 cursor-pointer transition-colors group"
+                    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors group"
                   >
                     <td className="py-3.5 px-4">
                       <SeverityBadge severity={err.severity} size="sm" />
@@ -284,22 +286,22 @@ export const DashboardPage: React.FC = () => {
                       <CategoryBadge category={err.category} />
                     </td>
                     <td className="py-3.5 px-4 max-w-md">
-                      <div className="font-semibold text-white font-mono group-hover:text-blue-400 transition-colors truncate">
+                      <div className="font-semibold text-slate-900 dark:text-white font-mono group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
                         {err.title}
                       </div>
-                      <div className="text-slate-400 text-[11px] truncate mt-0.5">
+                      <div className="text-slate-500 dark:text-slate-400 text-[11px] truncate mt-0.5">
                         {err.message}
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-slate-300">
+                    <td className="py-3.5 px-4 font-mono text-slate-700 dark:text-slate-300">
                       {err.serviceName}
                     </td>
                     <td className="py-3.5 px-4 text-center">
-                      <span className="inline-block rounded bg-slate-800 px-2 py-0.5 font-mono font-semibold text-white">
+                      <span className="inline-block rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 font-mono font-semibold text-slate-800 dark:text-white">
                         {err.occurrenceCount}x
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-slate-400">
+                    <td className="py-3.5 px-4 font-mono text-slate-500 dark:text-slate-400">
                       {err.firstOccurrence}
                     </td>
                     <td className="py-3.5 px-4 text-right">
@@ -308,7 +310,7 @@ export const DashboardPage: React.FC = () => {
                           e.stopPropagation();
                           setSelectedError(err);
                         }}
-                        className="inline-flex items-center gap-1 text-xs text-blue-400 group-hover:underline"
+                        className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 group-hover:underline"
                       >
                         Investigate
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -318,7 +320,7 @@ export const DashboardPage: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-500">
+                  <td colSpan={7} className="py-8 text-center text-slate-400 dark:text-slate-500">
                     No recurring errors recorded. Upload and analyze a log file to view findings.
                   </td>
                 </tr>

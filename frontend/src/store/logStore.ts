@@ -53,11 +53,19 @@ export const useLogStore = create<LogState>((set, get) => ({
   },
 
   deleteFile: async (fileId: number) => {
-    await logService.deleteFile(fileId);
-    set((state) => ({
-      files: state.files.filter((f) => f.id !== fileId),
-      selectedFile: state.selectedFile?.id === fileId ? null : state.selectedFile,
-      activeAnalysis: state.activeAnalysis?.logFileId === fileId ? null : state.activeAnalysis,
-    }));
+    try {
+      await logService.deleteFile(fileId);
+      // Optimistically update local state
+      set((state) => ({
+        files: state.files.filter((f) => f.id !== fileId),
+        selectedFile: state.selectedFile?.id === fileId ? null : state.selectedFile,
+        activeAnalysis: state.activeAnalysis?.logFileId === fileId ? null : state.activeAnalysis,
+      }));
+      // Refresh from server to ensure consistency
+      await get().fetchFiles();
+    } catch (e) {
+      console.error('Failed to delete file', e);
+      throw e;
+    }
   },
 }));

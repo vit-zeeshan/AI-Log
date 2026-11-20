@@ -161,7 +161,16 @@ export const UploadLogsPage: React.FC = () => {
                           )}
                         </button>
                         <button
-                          onClick={() => deleteFile(f.id)}
+                          onClick={async () => {
+          console.log('Attempting delete for id', f.id);
+          try {
+            await deleteFile(f.id);
+            console.log('Delete succeeded');
+            fetchFiles();
+          } catch (e) {
+            console.error('Delete failed', e);
+          }
+        }}
                           className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-800 hover:text-rose-400 transition-colors"
                           title="Delete File"
                         >

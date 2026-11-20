@@ -54,7 +54,7 @@ export const CategoryBadge: React.FC<Props> = ({ category, className = '' }) => 
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60 ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 ${className}`}
     >
       {getIcon()}
       {getCategoryLabel(category)}

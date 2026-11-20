@@ -37,9 +37,14 @@ public class LogFileController {
         return ResponseEntity.ok(ApiResponse.ok("File uploaded successfully", dto));
     }
 
-    @GetMapping
-    @Operation(summary = "List all uploaded log files for current user")
-    public ResponseEntity<ApiResponse<List<LogDtos.LogFileDto>>> getUserLogs() {
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "List **all** uploaded log files (admin view)")
+    public ResponseEntity<ApiResponse<List<LogDtos.LogFileDto>>> getAllLogs() {
+        List<LogDtos.LogFileDto> files = logFileService.getAllFiles();
+        return ResponseEntity.ok(ApiResponse.ok(files));
+    }
+
         User user = authService.getCurrentAuthenticatedUser();
         List<LogDtos.LogFileDto> files = logFileService.getUserFiles(user);
         return ResponseEntity.ok(ApiResponse.ok(files));

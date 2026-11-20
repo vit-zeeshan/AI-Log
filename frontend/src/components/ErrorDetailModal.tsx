@@ -41,7 +41,7 @@ export const ErrorDetailModal: React.FC<Props> = ({ error, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative my-8 w-full max-w-4xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl">
         {/* Header */}
         <div className="flex items-start justify-between border-b border-slate-800 bg-slate-950/60 p-6">

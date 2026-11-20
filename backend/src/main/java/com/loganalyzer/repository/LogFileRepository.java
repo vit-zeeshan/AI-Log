@@ -13,4 +13,5 @@ public interface LogFileRepository extends JpaRepository<LogFile, Long> {
     List<LogFile> findByUserOrderByUploadTimestampDesc(User user);
     Optional<LogFile> findByIdAndUser(Long id, User user);
     long countByUser(User user);
+    List<LogFile> findAllByOrderByUploadTimestampDesc();
 }

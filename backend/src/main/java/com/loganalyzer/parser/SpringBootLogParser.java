@@ -16,7 +16,7 @@ public class SpringBootLogParser implements LogParser {
     // e.g. 2024-11-14T10:23:45.123Z [service] ERROR ...
     // e.g. 2024-11-14 10:23:45 ERROR [thread] logger - message
     private static final Pattern SPRING_LOG_PATTERN = Pattern.compile(
-            "^(\\d{4}-\\d{2}-\\d{2}[T\\s]\\d{2}:\\d{2}:\\d{2}(?:[.,]\\d{3})?(?:Z|[+-]\\d{2}:?\\d{2})?)\\s*(?:\\[(.*?)\\])?\\s*([A-Z]+|ERROR|WARN|INFO|DEBUG|FATAL|TRACE)\\s+(?:(?:\\d+\\s+---\\s+)?(?:\\[(.*?)\\])?\\s*)?(?:([\\w.\\-$]+)\\s*(?:\\(.*?\\))?\\s*[:\\-]\\s*)?(.*)$"
+            "^(\\d{4}-\\d{2}-\\d{2}[T\\s]\\d{2}:\\d{2}:\\d{2}(?:[.,]\\d{3})?(?:Z|[+-]\\d{2}:?\\d{2})?)\\s*(?:\\[([^\\]]+)\\])?\\s*(?:\\[([^\\]]+)\\])?\\s*([A-Z]+|ERROR|WARN|INFO|DEBUG|FATAL|TRACE)\\s+(?:(?:\\d+\\s+---\\s+)?(?:\\[([^\\]]+)\\])?\\s*)?(?:([\\w.\\-$]+)\\s*(?:\\(.*?\\))?\\s*[:\\-]\\s*)?(.*)$"
     );
 
     private static final Pattern SIMPLE_PATTERN = Pattern.compile(
@@ -67,8 +67,16 @@ public class SpringBootLogParser implements LogParser {
                 String logger = null;
                 String message;
 
-                if (matcher.groupCount() >= 6) {
-                    // SPRING_LOG_PATTERN
+                if (matcher.groupCount() >= 7) {
+                    // SPRING_LOG_PATTERN with optional [service] [thread]
+                    service = matcher.group(2);
+                    String bracketThread = matcher.group(3);
+                    level = matcher.group(4);
+                    String dashThread = matcher.group(5);
+                    logger = matcher.group(6);
+                    message = matcher.group(7);
+                    thread = bracketThread != null ? bracketThread : dashThread;
+                } else if (matcher.groupCount() >= 6) {
                     service = matcher.group(2);
                     level = matcher.group(3);
                     thread = matcher.group(4);
